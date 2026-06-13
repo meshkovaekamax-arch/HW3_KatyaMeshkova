@@ -5,6 +5,7 @@ show_help() {
     echo "Использование: ./run.sh [команда]"
     echo ""
     echo "Доступные команды:"
+    echo ""
     echo "build_generator   - собирается образ для контейнера генератора "
     echo "run_generator     - запускается контейнер, который генерирует data/data.csv локально"
     echo "create_local_data - в директории local_data создается data.csv (для локальной отладки)"
@@ -82,7 +83,7 @@ case "$1" in
     ;;
     
     *) 
-        echo "Ошибка: Неизвестная команда '$1'"
+        echo "Ошибка: Неизвестная команда '$1'! "
         show_help
         ;;
 esac
