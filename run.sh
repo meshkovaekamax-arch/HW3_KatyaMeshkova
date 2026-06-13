@@ -14,6 +14,7 @@ show_help() {
     echo "clear_data - удаление всех сгенерированных данных — файлы `.csv` и `.html` из папки `data/`"
     echo "inside_generator - запускается контейнер generator и выводится содержимое data изнутри контейнера"
     echo "inside_reporter - проверяется, что контейнер reporter видит файлы data с хоста"
+    echo "report_server - запускается контейнер с веб-сервером, который раздаёт report.html"
     exit 1
 }
 
@@ -73,4 +74,13 @@ case "$1" in
         echo "Ошибка: Неизвестная команда '$1'"
         show_help
         ;;
+
+    report_server)
+        echo "=== Открытие HTML-отчета через веб-сервер ==="
+        if [ ! -f data/report.html ]; then
+            echo "=== Ошибка! HTML-отчёт не найден! ==="
+            exit 1
+        fi
+        docker run -d -p 8080:80 -v $(pwd)/data:/usr/share/nginx/html --name new-web-report nginx
+    
 esac
