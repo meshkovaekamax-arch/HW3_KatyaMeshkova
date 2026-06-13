@@ -69,11 +69,6 @@ case "$1" in
         echo "=== Запуск контейнера reporter и вывод содержимого data ==="
         docker run --rm -v "$(pwd)/data:/data" reporter ls -la /data
     ;;
-    
-    *) 
-        echo "Ошибка: Неизвестная команда '$1'"
-        show_help
-        ;;
 
     report_server)
         echo "=== Открытие HTML-отчета через веб-сервер ==="
@@ -82,5 +77,10 @@ case "$1" in
             exit 1
         fi
         docker run -d -p 8080:80 -v $(pwd)/data:/usr/share/nginx/html --name new-web-report nginx
+    ;;
     
+    *) 
+        echo "Ошибка: Неизвестная команда '$1'"
+        show_help
+        ;;
 esac
