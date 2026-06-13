@@ -8,6 +8,8 @@ show_help() {
     echo "build_generator   - собрать образ для контейнера генератора "
     echo "run_generator     - запустить контейнер, который сгенерирует data/data.csv локально"
     echo "create_local_data - в директории local_data создает data.csv (для локальной отладки)"
+    echo "build_reporter - собрать образ для контейнера аналитика"
+    echo "run_reporter - запустить контейнер, который сгенерирует html отчет локально в директории data"
     exit 1
 }
 
@@ -28,8 +30,18 @@ case "$1" in
     create_local_data)
         echo "=== Локальное создание data.csv в local_data ==="
         mkdir -p local_data
-        docker run run --rm -v "$(pwd)/local_data:/data" generator
+        docker run --rm -v "$(pwd)/local_data:/data" generator
         echo "=== Файл сохранен в local_data/data.csv! ==="
+        ;;
+    
+    build_reporter)
+        echo "=== Создание образа для контейнера аналитика ==="
+        docker build -t reporter ./report_creator
+        ;;
+    
+    run_reporter)
+        echo "=== Запуск контейнера и генерация html отчета в data ==="
+        docker run --rm -v "$(pwd)/data:/data" reporter
         ;;
 
     *) 
