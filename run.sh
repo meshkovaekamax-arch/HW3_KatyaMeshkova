@@ -76,8 +76,8 @@ case "$1" in
             echo "=== Ошибка! HTML-отчёт не найден! ==="
             exit 1
         fi
-        chmod -R a+r data/
-        docker run -d -p 8080:80 -v $(pwd)/data:/usr/share/nginx/html --name new-web-report nginx
+        cp data/report.html data/index.html
+        docker run -d -p 8080:80 -v "$(pwd)/data:/usr/share/nginx/html:ro" --name new-web-report nginx
     ;;
     
     *) 
