@@ -5,11 +5,15 @@ show_help() {
     echo "Использование: ./run.sh [команда]"
     echo ""
     echo "Доступные команды:"
-    echo "build_generator   - собрать образ для контейнера генератора "
-    echo "run_generator     - запустить контейнер, который сгенерирует data/data.csv локально"
-    echo "create_local_data - в директории local_data создает data.csv (для локальной отладки)"
-    echo "build_reporter - собрать образ для контейнера аналитика"
-    echo "run_reporter - запустить контейнер, который сгенерирует html отчет локально в директории data"
+    echo "build_generator   - собирается образ для контейнера генератора "
+    echo "run_generator     - запускается контейнер, который генерирует data/data.csv локально"
+    echo "create_local_data - в директории local_data создается data.csv (для локальной отладки)"
+    echo "build_reporter - собирает образ для контейнера аналитика"
+    echo "run_reporter - запускается контейнер, который генерирует html отчет локально в директории data"
+    echo "structure - вывод структуры всех файлов и директорий проекта начиная с текущей папки"
+    echo "clear_data - удаление всех сгенерированных данных — файлы `.csv` и `.html` из папки `data/`"
+    echo "inside_generator - запускается контейнер generator и выводится содержимое data изнутри контейнера"
+    echo "inside_reporter - проверяется, что контейнер reporter видит файлы data с хоста"
     exit 1
 }
 
@@ -40,10 +44,31 @@ case "$1" in
         ;;
     
     run_reporter)
-        echo "=== Запуск контейнера и генерация html отчета в data ==="
+        echo "=== Запуск контейнера-аналитика и генерация html отчета в data ==="
         docker run --rm -v "$(pwd)/data:/data" reporter
         ;;
+    
+    structure)
+        echo "=== Структура проекта ==="
+        find . -type f -o -type d | sort
+    ;;
 
+    clear_data) 
+        echo "=== Запущено удаление всех сгенерированных данных ==="
+        rm -f data/*.csv data/*.html
+        echo "=== Папка data очищена! ==="
+    ;;
+
+    inside_generator)
+        echo "=== Запуск контейнера generator и вывод содержимого data ==="
+        docker run --rm -v "$(pwd)/data:/data" generator ls -la /data
+    ;;
+
+    inside_reporter)
+        echo "=== Запуск контейнера reporter и вывод содержимого data ==="
+        docker run --rm -v "$(pwd)/data:/data" reporter ls -la /data
+    ;;
+    
     *) 
         echo "Ошибка: Неизвестная команда '$1'"
         show_help
