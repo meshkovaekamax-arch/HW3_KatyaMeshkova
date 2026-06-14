@@ -98,3 +98,4 @@ cd HW3_KatyaMeshkova
 [2] https://www.youstable.com/ru/blog/cp-command-in-linux/
 [3] https://dockerhosting.ru/blog/nginx-v-docker/
 [4] https://bash.cyberciti.biz/wiki/index.php?title=$1&mobileaction=toggle_view_desktop]
+также был изучен nginx : https://hub.docker.com/_/nginx 
