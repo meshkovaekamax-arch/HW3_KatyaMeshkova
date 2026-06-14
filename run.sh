@@ -18,7 +18,7 @@ show_help() {
     echo "report_server - запускается контейнер с веб-сервером, который раздаёт report.html"
     exit 1
 }
-
+# [4]
 case "$1" in
 
     build_generator)
@@ -77,9 +77,9 @@ case "$1" in
             echo "=== Ошибка! HTML-отчёт не найден! ==="
             exit 1
         fi
-        docker rm -f new-web-report 2>/dev/null
-        cp data/report.html data/index.html
-        docker run -d -p 8080:80 -v "$(pwd)/data:/usr/share/nginx/html:ro" --name new-web-report nginx
+        docker rm -f new-web-report 2>/dev/null # [1]
+        cp data/report.html data/index.html # [2]
+        docker run -d -p 8080:80 -v "$(pwd)/data:/usr/share/nginx/html:ro" --name new-web-report nginx # [3]
     ;;
     
     *) 

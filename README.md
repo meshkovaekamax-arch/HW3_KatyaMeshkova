@@ -92,3 +92,9 @@ cd HW3_KatyaMeshkova
 ```bash
 ./run.sh clear_data
 ```
+
+## Источники
+[1] https://www.opennet.ru/docs/RUS/bash_scripting_guide/c13041.html
+[2] https://www.youstable.com/ru/blog/cp-command-in-linux/
+[3] https://dockerhosting.ru/blog/nginx-v-docker/
+[4] https://bash.cyberciti.biz/wiki/index.php?title=$1&mobileaction=toggle_view_desktop]
